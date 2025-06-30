@@ -25,46 +25,33 @@ export function ExperienceWindow() {
 
   const experiences = [
     {
-      title: "Senior Full Stack Developer",
-      company: "TechCorp Solutions",
+      title: "Web Developer",
+      company: "Tale Of Humankind",
       location: "Remote",
-      period: "2022 - Present",
-      description: "Leading development of enterprise web applications using React, Next.js, and Node.js. Mentoring junior developers and architecting scalable solutions.",
+      period: "Apr 2023 - Present",
+      description: "Supervise & Manage the Website of this NGO. Responsible for maintaining and developing the organization's web presence.",
       achievements: [
-        "Led a team of 5 developers in rebuilding the main product platform",
-        "Improved application performance by 40% through optimization",
-        "Implemented CI/CD pipelines reducing deployment time by 60%",
-        "Mentored 3 junior developers to mid-level positions"
+        "Managing complete web development lifecycle",
+        "Implementing modern web technologies and frameworks",
+        "Ensuring website accessibility and performance optimization",
+        "Collaborating with the NGO team to enhance user experience"
       ],
-      technologies: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "AWS"]
+      technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Content Management"]
     },
     {
-      title: "Full Stack Developer",
-      company: "Digital Innovations Inc",
-      location: "San Francisco, CA",
-      period: "2020 - 2022",
-      description: "Developed and maintained multiple client projects using modern web technologies. Collaborated with design teams to create pixel-perfect user interfaces.",
+      title: "Web Developer",
+      company: "Environment And Wildlife Care Society",
+      location: "Remote",
+      period: "Jan 2019 - Present",
+      description: "Managing the Web development of this NGO. Leading the digital transformation initiatives and maintaining the organization's online presence.",
       achievements: [
-        "Built 15+ client websites with 99.9% uptime",
-        "Reduced page load times by 50% through code optimization",
-        "Implemented real-time features using WebSockets",
-        "Contributed to the company's open-source component library"
+        "Successfully managing web development for 6+ years",
+        "Implemented responsive design for better mobile experience",
+        "Integrated donation systems and volunteer management",
+        "Developed content management systems for easy updates",
+        "Improved website performance and SEO rankings"
       ],
-      technologies: ["React", "Vue.js", "Python", "Django", "MongoDB", "Docker"]
-    },
-    {
-      title: "Frontend Developer",
-      company: "StartupHub",
-      location: "Austin, TX",
-      period: "2019 - 2020",
-      description: "Focused on creating responsive web applications and improving user experience. Worked in an agile environment with cross-functional teams.",
-      achievements: [
-        "Developed responsive designs for mobile-first approach",
-        "Increased user engagement by 35% through UI/UX improvements",
-        "Integrated third-party APIs and payment gateways",
-        "Maintained 95% code coverage with comprehensive testing"
-      ],
-      technologies: ["React", "JavaScript", "CSS3", "HTML5", "Jest", "Figma"]
+      technologies: ["HTML", "CSS", "JavaScript", "PHP", "WordPress", "MySQL"]
     }
   ]
 
@@ -93,9 +80,9 @@ export function ExperienceWindow() {
           <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-slate-300 dark:bg-slate-700"></div>
           
           <div className="space-y-8">
-            {experiences.map((experience) => (
+            {experiences.map((experience, index) => (
               <motion.div
-                key={experience.title}
+                key={`${experience.company}-${index}`}
                 variants={itemVariants}
                 className="relative flex items-start"
               >

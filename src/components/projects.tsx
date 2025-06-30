@@ -31,99 +31,122 @@ export function Projects() {
     }
   }
 
-  const categories = ["All", "Web App", "E-commerce", "Dashboard", "Landing Page"]
+  const categories = ["All", "Web App", "Event Management", "Security Tool", "AI Platform", "Healthcare", "Marketing"]
 
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      category: "E-commerce",
-      description: "A full-stack e-commerce solution with payment integration, inventory management, and admin dashboard.",
-      image: "/api/placeholder/600/400",
-      technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Stripe", "Tailwind CSS"],
+      title: "Poornima Aarohan 2024",
+      category: "Event Management",
+      description: "Website developed for our College's Fest. It consisted of many tech stacks including framer-motion in a website.",
+      image: "/projects/aarohan.png",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "React Hook Form"],
       features: [
-        "User authentication and authorization",
-        "Product catalog with search and filters",
-        "Shopping cart and checkout process",
-        "Payment integration with Stripe",
-        "Admin dashboard for inventory management",
-        "Order tracking and email notifications"
+        "Event listings and schedules",
+        "Online registration system",
+        "Media galleries and countdown timers",
+        "Responsive design with animations",
+        "Admin dashboard for event management",
+        "Real-time updates and notifications"
       ],
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com/username/project",
+      liveUrl: "https://aarohan.poornima.org/archives/2024",
+      githubUrl: "https://github.com/nerkoux/Aarohan-2k24",
       stats: {
-        users: "1000+",
-        performance: "98%",
-        uptime: "99.9%"
+        visitors: "10k+",
+        registrations: "2k+",
+        events: "50+"
       }
     },
     {
       id: 2,
-      title: "Analytics Dashboard",
-      category: "Dashboard",
-      description: "Real-time analytics dashboard with interactive charts, data visualization, and reporting features.",
-      image: "/api/placeholder/600/400",
-      technologies: ["React", "D3.js", "Node.js", "Express", "MongoDB", "WebSocket"],
+      title: "PhishGuard",
+      category: "Security Tool",
+      description: "Malicious Link Detector with browser capabilities. Developed an android app as well as chromium based browser extension to ensure user safety.",
+      image: "/projects/phishguard.png",
+      technologies: ["React", "Python", "TensorFlow", "Flask API", "Chrome Extension", "Android"],
       features: [
-        "Real-time data visualization",
-        "Interactive charts and graphs",
-        "Custom reporting tools",
-        "Data export functionality",
-        "User role management",
-        "Mobile responsive design"
+        "Real-time URL scanning",
+        "Browser extension integration", 
+        "Machine learning threat detection",
+        "Android app for mobile protection",
+        "Detailed security reports",
+        "Blacklist and whitelist management"
       ],
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com/username/project",
+      liveUrl: "https://phishguard.debugclub.site",
+      githubUrl: "https://github.com/nerkoux/phishguard",
       stats: {
-        dataPoints: "1M+",
-        responseTime: "<100ms",
-        accuracy: "99.5%"
+        threats: "10k+",
+        accuracy: "98.5%",
+        users: "5k+"
       }
     },
     {
       id: 3,
-      title: "Task Management App",
-      category: "Web App",
-      description: "Collaborative task management application with team features, real-time updates, and project tracking.",
-      image: "/api/placeholder/600/400",
-      technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Framer Motion"],
+      title: "RoomGPT",
+      category: "AI Platform",
+      description: "Room Generator developed using React. It uses replicate model to see the outlines of the original image of the room and then convert it into the room the way you want.",
+      image: "/projects/roomgpt.png",
+      technologies: ["React", "Replicate API", "TypeScript", "Image Processing", "AI"],
       features: [
-        "Team collaboration tools",
-        "Real-time task updates",
-        "Project timeline visualization",
-        "File sharing and comments",
-        "Custom workflow automation",
-        "Mobile app companion"
+        "Room design generation",
+        "AI-powered image transformation",
+        "Real-time preview",
+        "Multiple design styles",
+        "Image outline detection",
+        "Custom room layouts"
       ],
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com/username/project",
+      liveUrl: "https://roomgpt.dev",
+      githubUrl: "https://github.com/nerkoux/roomgpt",
       stats: {
-        teams: "500+",
-        tasks: "50k+",
-        satisfaction: "4.8/5"
+        generations: "5k+",
+        accuracy: "95%",
+        users: "2k+"
       }
     },
     {
       id: 4,
-      title: "SaaS Landing Page",
-      category: "Landing Page",
-      description: "High-converting SaaS landing page with animations, testimonials, and integrated contact forms.",
-      image: "/api/placeholder/600/400",
-      technologies: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript"],
+      title: "Matrix Discord Bot",
+      category: "Bot Development",
+      description: "Discord Music Bot where users can search and play songs in their voice channels. Song Metadata is fetched through YouTube & Spotify API (Lavalink).",
+      image: "/projects/matrix-bot.png",
+      technologies: ["Node.js", "Discord.js", "Lavalink", "YouTube API", "Spotify API"],
       features: [
-        "Responsive design for all devices",
-        "Smooth scroll animations",
-        "Integrated contact forms",
-        "SEO optimized structure",
-        "Fast loading performance",
-        "A/B testing capabilities"
+        "Voice channel music playback",
+        "YouTube and Spotify integration",
+        "Song queue management",
+        "Metadata fetching",
+        "Multi-server support",
+        "Audio quality optimization"
       ],
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com/username/project",
+      liveUrl: "https://discord.com/api/oauth2/authorize?client_id=matrix",
+      githubUrl: "https://github.com/nerkoux/matrix-bot",
       stats: {
-        conversion: "15%",
-        loadTime: "1.2s",
-        seoScore: "100/100"
+        servers: "100+",
+        songs: "50k+",
+        users: "10k+"
+      }
+    },
+    {
+      id: 5,
+      title: "Incolnx",
+      category: "Marketing",
+      description: "Digital marketing platform offering branding services, client showcases, social proof, and comprehensive growth packages.",
+      image: "/projects/incolnx.png",
+      technologies: ["Next.js", "Tailwind CSS", "Framer Motion", "Sanity CMS"],
+      features: [
+        "Client portfolio showcases",
+        "Animated case studies",
+        "SEO-optimized landing pages",
+        "Growth tracking dashboard",
+        "Social media integration",
+        "Lead generation tools"
+      ],
+      liveUrl: "https://incolnx.com",
+      githubUrl: "https://github.com/nerkoux/incolnx",
+      stats: {
+        clients: "100+",
+        growth: "300%",
+        conversion: "25%"
       }
     }
   ]

@@ -6,6 +6,12 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ExternalLink, Github, Globe, Filter, X } from 'lucide-react'
 
+// interface WorkExperience {
+//   role: string;
+//   duration: string;
+//   responsibilities: string[];
+// }
+
 export function ProjectsWindow() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [selectedProject, setSelectedProject] = useState<number | null>(null)
@@ -13,76 +19,205 @@ export function ProjectsWindow() {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      category: "Web App",
-      description: "Full-featured e-commerce platform with admin dashboard, payment integration, and inventory management.",
-      image: "/api/placeholder/600/400",
-      technologies: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Stripe", "Tailwind CSS"],
+      title: "Poornima Aarohan 2024",
+      category: "Event Management",
+      description: "Official website for our annual college fest with modern design, event listings, schedules, registration forms, media galleries, and countdowns.",
+      image: "/projects/aarohan.png",
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "+2 more"],
       features: [
-        "User authentication and authorization",
-        "Product catalog with search and filters",
-        "Shopping cart and checkout process",
-        "Payment integration with Stripe",
-        "Admin dashboard for inventory management",
-        "Order tracking and email notifications"
+        "Event listings and schedules",
+        "Online registration system",
+        "Media galleries and countdown timers",
+        "Responsive design with animations",
+        "Admin dashboard for event management",
+        "Real-time updates and notifications"
       ],
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com/username/project",
+      liveUrl: "https://aarohan.poornima.org/archives/2024",
+      githubUrl: "https://github.com/nerkoux/Aarohan-2k24",
       stats: {
-        users: "1000+",
-        performance: "98%",
-        uptime: "99.9%"
+        visitors: "10k+",
+        registrations: "2k+",
+        events: "50+"
+      },
+      workExperience: {
+        role: "Lead Web Developer",
+        duration: "March 2024",
+        responsibilities: [
+          "Led the complete web development of the college fest website",
+          "Implemented responsive design with smooth animations using Framer Motion",
+          "Developed event management system with real-time updates",
+          "Coordinated with design team to ensure pixel-perfect implementation"
+        ]
       }
     },
     {
       id: 2,
-      title: "Analytics Dashboard",
-      category: "Dashboard",
-      description: "Real-time analytics dashboard with interactive charts, data visualization, and reporting features.",
-      image: "/api/placeholder/600/400",
-      technologies: ["React", "D3.js", "Node.js", "Express", "MongoDB", "WebSocket"],
+      title: "PhishGuard",
+      category: "Security Tool", 
+      description: "Advanced phishing detection tool that protects users by scanning URLs and email links for potential threats using machine learning.",
+      image: "/projects/phishguard.png",
+      technologies: ["React", "Python", "TensorFlow", "+2 more"],
       features: [
-        "Real-time data visualization",
-        "Interactive charts and graphs",
-        "Custom reporting tools",
-        "Data export functionality",
-        "User role management",
-        "Mobile responsive design"
+        "Real-time URL scanning",
+        "Browser extension integration",
+        "Machine learning threat detection",
+        "User-friendly threat alerts",
+        "Detailed security reports",
+        "Blacklist and whitelist management"
       ],
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com/username/project",
+      liveUrl: "https://phishguard.debugclub.site",
+      githubUrl: "https://github.com/nerkoux/phishguard",
       stats: {
-        dataPoints: "1M+",
-        responseTime: "<100ms",
-        accuracy: "99.5%"
+        threats: "10k+",
+        accuracy: "98.5%",
+        users: "5k+"
+      },
+      workExperience: {
+        role: "Full Stack Developer",
+        duration: "October 2024 - CodeFiesta 3.0",
+        responsibilities: [
+          "Developed machine learning model for malicious link detection",
+          "Created browser extension for real-time threat protection",
+          "Built Android app for mobile security",
+          "Implemented threat detection algorithms with 98.5% accuracy"
+        ]
       }
     },
     {
       id: 3,
-      title: "Task Management App",
-      category: "Web App",
-      description: "Collaborative task management application with team features, real-time updates, and project tracking.",
-      image: "/api/placeholder/600/400",
-      technologies: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Framer Motion"],
+      title: "RoomGPT",
+      category: "AI Platform",
+      description: "AI-powered room generator that uses the Replicate model to transform room images based on user preferences and design styles.",
+      image: "/projects/roomgpt.png",
+      technologies: ["React", "Replicate", "AI", "+2 more"],
       features: [
-        "Team collaboration tools",
-        "Real-time task updates",
-        "Project timeline visualization",
-        "File sharing and comments",
-        "Custom workflow automation",
-        "Mobile app companion"
+        "AI-powered room transformation",
+        "Multiple design style options",
+        "Real-time image processing",
+        "Custom room layout generation",
+        "High-quality output rendering",
+        "User-friendly interface"
       ],
-      liveUrl: "https://example.com",
-      githubUrl: "https://github.com/username/project",
+      liveUrl: "https://roomgpt.dev", 
+      githubUrl: "https://github.com/nerkoux/roomgpt",
       stats: {
-        teams: "500+",
-        tasks: "50k+",
-        satisfaction: "4.8/5"
+        generations: "5k+",
+        accuracy: "95%",
+        users: "2k+"
+      },
+      workExperience: {
+        role: "AI/ML Developer",
+        duration: "March 2023",
+        responsibilities: [
+          "Integrated Replicate AI model for room image transformation",
+          "Developed React frontend with real-time preview capabilities",
+          "Implemented image processing pipeline for room outline detection",
+          "Optimized AI model performance for faster generation times"
+        ]
+      }
+    },
+    {
+      id: 4,
+      title: "Matrix Discord Bot",
+      category: "Bot Development", 
+      description: "Advanced Discord music bot with voice channel support, allowing users to search and play songs with metadata from YouTube & Spotify APIs.",
+      image: "/projects/matrix-bot.png", // Using phishguard as placeholder
+      technologies: ["Node.js", "Discord.js", "Lavalink", "+2 more"],
+      features: [
+        "Voice channel music playback",
+        "YouTube and Spotify integration",
+        "Song queue management",
+        "High-quality audio streaming",
+        "Multi-server support",
+        "Advanced music controls"
+      ],
+      liveUrl: "https://discord.com/invite/matrix",
+      githubUrl: "https://github.com/nerkoux/matrix-bot",
+      stats: {
+        servers: "100+",
+        songs: "50k+",
+        users: "10k+"
+      },
+      workExperience: {
+        role: "Backend Developer",
+        duration: "February 2023",
+        responsibilities: [
+          "Developed Discord bot using Node.js and Discord.js",
+          "Integrated YouTube and Spotify APIs for music metadata",
+          "Implemented Lavalink for high-quality audio streaming",
+          "Built queue management system for seamless music experience"
+        ]
+      }
+    },
+    {
+      id: 5,
+      title: "Environment & Wildlife Care Society",
+      category: "Web Development",
+      description: "Managing the Web development of this NGO website to promote environmental awareness and wildlife conservation efforts.",
+      image: "/projects/incolnx.png",
+      technologies: ["Web Development", "Content Management", "SEO", "+1 more"],
+      features: [
+        "Environmental awareness content",
+        "Wildlife conservation resources", 
+        "Donation management system",
+        "Event coordination platform",
+        "Volunteer registration",
+        "Educational resources"
+      ],
+      liveUrl: "https://ewcsjaipur.in",
+      githubUrl: "https://github.com/nerkoux/ewcs",
+      stats: {
+        visitors: "5k+",
+        donations: "₹2L+",
+        volunteers: "500+"
+      },
+      workExperience: {
+        role: "Web Developer",
+        duration: "January 2019 - Present",
+        responsibilities: [
+          "Supervise & Manage the complete website development",
+          "Coordinate with NGO team for content updates and features",
+          "Implement donation management system",
+          "Maintain website performance and security"
+        ]
+      }
+    },
+    {
+      id: 6,
+      title: "Tale Of Humankind",
+      category: "Web Development",
+      description: "Supervising and managing the website development for this humanitarian organization focused on human stories and social impact.",
+      image: "/projects/incolnx.png",
+      technologies: ["Web Development", "Content Management", "Social Media", "+1 more"],
+      features: [
+        "Story publishing platform",
+        "Social impact showcases",
+        "Community engagement tools",
+        "Event management system",
+        "Newsletter integration",
+        "Multimedia content support"
+      ],
+      liveUrl: "https://taleofhumankind.org",
+      githubUrl: "https://github.com/nerkoux/toh",
+      stats: {
+        stories: "200+",
+        readers: "10k+",
+        impact: "15 cities"
+      },
+      workExperience: {
+        role: "Web Developer",
+        duration: "April 2023 - Present",
+        responsibilities: [
+          "Supervise & Manage the Website development",
+          "Implement story publishing and content management system",
+          "Coordinate with content creators and social media team",
+          "Optimize website for better user engagement and SEO"
+        ]
       }
     }
   ]
 
-  const categories = ['All', 'Web App', 'Dashboard', 'Landing Page']
+  const categories = ['All', 'Event Management', 'Security Tool', 'AI Platform', 'Bot Development', 'Web Development']
   const filteredProjects = selectedCategory === 'All' 
     ? projects 
     : projects.filter(project => project.category === selectedCategory)
@@ -159,10 +294,25 @@ export function ProjectsWindow() {
                 <Card className="transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
                   <CardContent className="p-0">
                     <div className="relative overflow-hidden rounded-t-lg">
-                      <div className="w-full h-48 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 flex items-center justify-center">
-                        <div className="text-center">
-                          <Globe className="h-12 w-12 mx-auto mb-2 text-blue-500" />
-                          <p className="text-sm text-slate-600 dark:text-slate-400">Project Preview</p>
+                      <div className="w-full h-48 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 relative">
+                        <img 
+                          src={project.image} 
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            // Fallback to gradient background if image fails to load
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                            const fallback = target.nextElementSibling as HTMLElement;
+                            if (fallback) fallback.style.display = 'flex';
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 flex items-center justify-center"
+                             style={{ display: 'none' }}>
+                          <div className="text-center">
+                            <Globe className="h-12 w-12 mx-auto mb-2 text-blue-500" />
+                            <p className="text-sm text-slate-600 dark:text-slate-400">Project Preview</p>
+                          </div>
                         </div>
                       </div>
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
@@ -306,16 +456,31 @@ export function ProjectsWindow() {
                       <div className="overflow-y-auto max-h-[calc(90vh-120px)] custom-scrollbar">
                         <div className="p-6">
                           {/* Project Preview */}
-                          <div className="w-full h-64 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded-xl mb-6 flex items-center justify-center border border-slate-200 dark:border-slate-700">
-                            <div className="text-center">
-                              <Globe className="h-16 w-16 mx-auto mb-4 text-blue-500" />
-                              <p className="text-slate-600 dark:text-slate-400 font-medium">Project Preview</p>
-                              <p className="text-slate-500 dark:text-slate-500 text-sm mt-1">Screenshots coming soon</p>
+                          <div className="w-full h-64 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded-xl mb-6 border border-slate-200 dark:border-slate-700 relative overflow-hidden">
+                            <img 
+                              src={project.image} 
+                              alt={project.title}
+                              className="w-full h-full object-cover rounded-xl"
+                              onError={(e) => {
+                                // Show fallback content if image fails to load
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                                const fallback = target.nextElementSibling as HTMLElement;
+                                if (fallback) fallback.style.display = 'flex';
+                              }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded-xl flex items-center justify-center"
+                                 style={{ display: 'none' }}>
+                              <div className="text-center">
+                                <Globe className="h-16 w-16 mx-auto mb-4 text-blue-500" />
+                                <p className="text-slate-600 dark:text-slate-400 font-medium">Project Preview</p>
+                                <p className="text-slate-500 dark:text-slate-500 text-sm mt-1">Screenshots coming soon</p>
+                              </div>
                             </div>
                           </div>
                           
                           {/* Project Details Grid */}
-                          <div className="grid md:grid-cols-2 gap-8">
+                          <div className="grid md:grid-cols-2 gap-8 mb-8">
                             <div className="space-y-6">
                               <div>
                                 <h4 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-3 flex items-center">
@@ -381,6 +546,37 @@ export function ProjectsWindow() {
                               </div>
                             </div>
                           </div>
+
+                          {/* Work Experience Section */}
+                          {project.workExperience && (
+                            <div className="border-t border-slate-200 dark:border-slate-700 pt-8">
+                              <h4 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4 flex items-center">
+                                <span className="w-2 h-2 bg-emerald-500 rounded-full mr-3"></span>
+                                My Role & Experience
+                              </h4>
+                              <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                                <div className="flex items-center justify-between mb-4">
+                                  <h5 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                                    {project.workExperience.role}
+                                  </h5>
+                                  <span className="text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900 px-3 py-1 rounded-full">
+                                    {project.workExperience.duration}
+                                  </span>
+                                </div>
+                                <div>
+                                  <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">Key Responsibilities:</p>
+                                  <ul className="space-y-2">
+                                    {project.workExperience.responsibilities.map((responsibility, index) => (
+                                      <li key={index} className="text-slate-600 dark:text-slate-400 flex items-start text-sm">
+                                        <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                        {responsibility}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          )}
                         </div>
                         
                         {/* Modal Footer */}

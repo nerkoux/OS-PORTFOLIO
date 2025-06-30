@@ -43,7 +43,7 @@ export function Experience() {
     {
       title: "Full Stack Developer",
       company: "Digital Innovations Inc",
-      location: "San Francisco, CA",
+      location: "Jaipur, Rajasthan",
       period: "2020 - 2022",
       description: "Developed and maintained multiple client projects using modern web technologies. Collaborated with design teams to create pixel-perfect user interfaces.",
       achievements: [

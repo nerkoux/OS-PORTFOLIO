@@ -20,18 +20,34 @@ export function ContactWindow() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus('idle')
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', subject: '', message: '' })
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      setSubmitStatus('error')
+    } finally {
       setIsSubmitting(false)
-      setSubmitStatus('success')
-      setFormData({ name: '', email: '', subject: '', message: '' })
-      
-      // Reset status after 3 seconds
-      setTimeout(() => {
-        setSubmitStatus('idle')
-      }, 3000)
-    }, 1000)
+    }
+
+    // Reset status after 3 seconds
+    setTimeout(() => {
+      setSubmitStatus('idle')
+    }, 3000)
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -58,21 +74,21 @@ export function ContactWindow() {
     {
       icon: Mail,
       title: "Email",
-      value: "hello@akshat.dev",
+      value: "hello@akshatmehta.com",
       description: "Drop me a line anytime",
-      link: "mailto:hello@akshat.dev"
+      link: "mailto:hello@akshatmehta.com"
     },
     {
       icon: Phone,
       title: "Phone",
-      value: "+1 (555) 123-4567",
+      value: "+917232073410",
       description: "Call me during business hours",
-      link: "tel:+15551234567"
+      link: "tel:+917232073410"
     },
     {
       icon: MapPin,
       title: "Location",
-      value: "San Francisco, CA",
+      value: "Jaipur, Rajasthan",
       description: "Available for remote work",
       link: "#"
     }
@@ -82,19 +98,19 @@ export function ContactWindow() {
     {
       icon: Github,
       name: "GitHub",
-      url: "https://github.com",
+      url: "https://github.com/nerkoux",
       color: "hover:text-gray-700 dark:hover:text-gray-300"
     },
     {
       icon: Linkedin,
       name: "LinkedIn",
-      url: "https://linkedin.com",
+      url: "https://linkedin.com/in/akszt",
       color: "hover:text-blue-600 dark:hover:text-blue-400"
     },
     {
       icon: Twitter,
       name: "Twitter",
-      url: "https://twitter.com",
+      url: "https://twitter.com/akszt",
       color: "hover:text-blue-500 dark:hover:text-blue-400"
     }
   ]

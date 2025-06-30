@@ -150,15 +150,15 @@ export function AboutWindow() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-blue-500" />
-                  <span className="text-slate-600 dark:text-slate-400">hello@akshat.dev</span>
+                  <span className="text-slate-600 dark:text-slate-400">hello@akshatmehta.com</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="w-5 h-5 text-green-500" />
-                  <span className="text-slate-600 dark:text-slate-400">+1 (555) 123-4567</span>
+                  <span className="text-slate-600 dark:text-slate-400">+917232073410</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin className="w-5 h-5 text-red-500" />
-                  <span className="text-slate-600 dark:text-slate-400">San Francisco, CA</span>
+                  <span className="text-slate-600 dark:text-slate-400">Jaipur, Rajasthan</span>
                 </div>
               </div>
             </CardContent>

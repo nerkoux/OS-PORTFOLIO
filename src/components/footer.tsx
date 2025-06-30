@@ -12,19 +12,19 @@ export function Footer() {
     {
       icon: Github,
       name: "GitHub",
-      url: "https://github.com",
+      url: "https://github.com/nerkoux",
       color: "hover:text-gray-700 dark:hover:text-gray-300"
     },
     {
       icon: Linkedin,
       name: "LinkedIn",
-      url: "https://linkedin.com",
+      url: "https://linkedin.com/in/akszt",
       color: "hover:text-blue-600 dark:hover:text-blue-400"
     },
     {
       icon: Twitter,
       name: "Twitter",
-      url: "https://twitter.com",
+      url: "https://twitter.com/akszt",
       color: "hover:text-blue-500 dark:hover:text-blue-400"
     },
     {
@@ -133,9 +133,9 @@ export function Footer() {
             >
               <h4 className="text-lg font-semibold mb-4">Get In Touch</h4>
               <div className="space-y-2 text-slate-300">
-                <p>hello@example.com</p>
-                <p>+1 (555) 123-4567</p>
-                <p>San Francisco, CA</p>
+                <p>hello@akshatmehta.com</p>
+                <p>+917232073410</p>
+                <p>Jaipur, Rajasthan</p>
                 <p className="text-sm text-slate-400 mt-4">
                   Available for freelance projects and full-time opportunities
                 </p>
