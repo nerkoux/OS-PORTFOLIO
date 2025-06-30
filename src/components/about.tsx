@@ -62,7 +62,7 @@ export function About() {
               About Me
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-              I'm a passionate full-stack developer with a love for creating digital experiences 
+              I&apos;m a passionate full-stack developer with a love for creating digital experiences 
               that make a difference. With expertise in modern web technologies, I bring ideas to life 
               through clean, efficient code and thoughtful design.
             </p>
@@ -81,11 +81,11 @@ export function About() {
                 </p>
                 <p>
                   With experience in both frontend and backend development, I enjoy working across 
-                  the full stack to deliver complete solutions. I'm particularly passionate about 
+                  the full stack to deliver complete solutions. I&apos;m particularly passionate about 
                   React, TypeScript, and modern web frameworks.
                 </p>
                 <p>
-                  When I'm not coding, you can find me exploring new technologies, contributing to 
+                  When I&apos;m not coding, you can find me exploring new technologies, contributing to 
                   open source projects, or sharing knowledge with the developer community.
                 </p>
               </div>
@@ -122,13 +122,12 @@ export function About() {
             <h3 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-8 text-center">
               What Drives Me
             </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {values.map((value, index) => (
-                <motion.div
-                  key={value.title}
-                  variants={itemVariants}
-                  className="group"
-                >
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">                  {values.map((value) => (
+                    <motion.div
+                      key={value.title}
+                      variants={itemVariants}
+                      className="group"
+                    >
                   <Card className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                     <CardContent className="p-6 text-center">
                       <div className="inline-flex items-center justify-center w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-lg mb-4 group-hover:bg-blue-100 dark:group-hover:bg-blue-900 transition-colors">

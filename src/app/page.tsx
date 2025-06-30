@@ -37,7 +37,7 @@ export default function Home() {
       <div className="min-h-screen bg-gradient-to-br from-blue-900 to-purple-900 flex items-center justify-center p-8">
         <div className="text-center text-white max-w-md">
           <div className="text-6xl mb-6">💻</div>
-          <h1 className="text-2xl font-bold mb-4">Akshat OS</h1>
+          <h1 className="text-2xl font-bold mb-4">Akshat Portfolio</h1>
           <p className="text-lg opacity-90 mb-6">
             Please view on desktop for the full immersive experience.
           </p>

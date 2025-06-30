@@ -2,10 +2,8 @@
 
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Monitor as DesktopIcon, Folder, Volume2, VolumeX, Wifi, Battery, User, Code, Briefcase, Award, MessageCircle, X, Minimize, Maximize, Calendar, Clock, Search, Star, Sun, Moon } from "lucide-react"
-import { Card } from "@/components/ui/card"
+import { Monitor as DesktopIcon, Volume2, VolumeX, Wifi, User, Code, Briefcase, Award, MessageCircle, X, Minimize, Maximize, Clock, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { AboutWindow } from "./windows/about-window"
 import { ProjectsWindow } from "./windows/projects-window"
@@ -16,6 +14,55 @@ import { useOSState } from "./os-state"
 import { useAudio } from "./audio-provider"
 import { Window } from "./os-state"
 import { StartMenu } from "./start-menu"
+
+// Define desktop items outside component to prevent recreation on every render
+const desktopItems = [
+  {
+    id: "about",
+    name: "About Me",
+    icon: User,
+    type: "folder",
+    component: AboutWindow,
+    description: "Personal information & background",
+    color: "from-blue-500 to-purple-600"
+  },
+  {
+    id: "projects",
+    name: "My Projects",
+    icon: Code,
+    type: "folder", 
+    component: ProjectsWindow,
+    description: "Featured development projects",
+    color: "from-green-500 to-emerald-600"
+  },
+  {
+    id: "skills",
+    name: "Skills & Tech",
+    icon: Award,
+    type: "folder",
+    component: SkillsWindow,
+    description: "Technical skills & expertise",
+    color: "from-orange-500 to-red-600"
+  },
+  {
+    id: "experience",
+    name: "Experience",
+    icon: Briefcase,
+    type: "folder",
+    component: ExperienceWindow,
+    description: "Professional experience",
+    color: "from-indigo-500 to-purple-600"
+  },
+  {
+    id: "contact",
+    name: "Contact",
+    icon: MessageCircle,
+    type: "folder",
+    component: ContactWindow,
+    description: "Get in touch with me",
+    color: "from-pink-500 to-rose-600"
+  }
+]
 
 export function Desktop() {
   const { state, dispatch } = useOSState()
@@ -41,55 +88,7 @@ export function Desktop() {
       initialPositions[item.id] = { x: 24, y: 24 + (index * 120) } // Vertical layout with more spacing
     })
     setIconPositions(initialPositions)
-  }, [])
-
-  const desktopItems = [
-    {
-      id: "about",
-      name: "About Me",
-      icon: User,
-      type: "folder",
-      component: AboutWindow,
-      description: "Personal information & background",
-      color: "from-blue-500 to-purple-600"
-    },
-    {
-      id: "projects",
-      name: "My Projects",
-      icon: Code,
-      type: "folder", 
-      component: ProjectsWindow,
-      description: "Featured development projects",
-      color: "from-green-500 to-emerald-600"
-    },
-    {
-      id: "skills",
-      name: "Skills & Tech",
-      icon: Award,
-      type: "folder",
-      component: SkillsWindow,
-      description: "Technical skills & expertise",
-      color: "from-orange-500 to-red-600"
-    },
-    {
-      id: "experience",
-      name: "Experience",
-      icon: Briefcase,
-      type: "folder",
-      component: ExperienceWindow,
-      description: "Professional experience",
-      color: "from-indigo-500 to-purple-600"
-    },
-    {
-      id: "contact",
-      name: "Contact",
-      icon: MessageCircle,
-      type: "folder",
-      component: ContactWindow,
-      description: "Get in touch with me",
-      color: "from-pink-500 to-rose-600"
-    }
-  ]
+  }, []) // Empty dependency array since desktopItems is now constant
 
   const openWindow = (item: typeof desktopItems[0]) => {
     playSound('open')
@@ -107,6 +106,20 @@ export function Desktop() {
     }
 
     dispatch({ type: 'OPEN_WINDOW', window: newWindow })
+  }
+
+  // Adapter function for StartMenu compatibility
+  const openWindowFromStartMenu = (item: { 
+    id: string; 
+    title: string; 
+    component: React.ComponentType<Record<string, unknown>>; 
+    icon: React.ComponentType<Record<string, unknown>> 
+  }) => {
+    // Find the corresponding desktop item
+    const desktopItem = desktopItems.find(dItem => dItem.id === item.id)
+    if (desktopItem) {
+      openWindow(desktopItem)
+    }
   }
 
   const closeWindow = (windowId: string) => {
@@ -144,15 +157,21 @@ export function Desktop() {
 
   return (
     <div 
-      className="h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-800 dark:from-slate-900 dark:via-slate-800 dark:to-black relative overflow-hidden"
+      className="h-screen relative overflow-hidden"
       style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+        backgroundImage: `url('/wallpaper/nebula.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
       }}
     >
+      {/* Dark overlay for better contrast with icons and text */}
+      <div className="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
       {/* Grid Guide - Shows when dragging */}
       {isDragging && (
         <div 
-          className="absolute inset-0 pointer-events-none z-5"
+          className="absolute inset-0 pointer-events-none z-20"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
@@ -164,7 +183,7 @@ export function Desktop() {
         />
       )}
       {/* Desktop Icons - Modern Windows/macOS Style */}
-      <div className="absolute inset-0 pb-20">
+      <div className="absolute inset-0 pb-20 z-10">
         {desktopItems.map((item, index) => {
           const IconComponent = item.icon
           const defaultPosition = { x: 24, y: 24 + (index * 120) }
@@ -221,15 +240,15 @@ export function Desktop() {
               onDoubleClick={() => openWindow(item)}
             >
               {/* Modern Desktop Icon */}
-              <div className="desktop-icon flex flex-col items-center p-3 rounded-xl hover:bg-white/20 dark:hover:bg-white/10 active:bg-white/30 dark:active:bg-white/20 transition-all duration-200 w-24 min-h-[110px]">
+              <div className="desktop-icon flex flex-col items-center p-3 rounded-xl hover:bg-white/30 dark:hover:bg-white/20 active:bg-white/40 dark:active:bg-white/30 transition-all duration-200 w-24 min-h-[110px] backdrop-blur-sm">
                 {/* Icon Container - Modern Windows 11 style with better spacing */}
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-xl group-hover:scale-110 group-active:scale-95 transition-transform duration-200 mb-2 border border-white/30 dark:border-white/20`}>
-                  <IconComponent className="w-6 h-6 text-white drop-shadow-sm" />
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center shadow-2xl group-hover:scale-110 group-active:scale-95 transition-transform duration-200 mb-2 border border-white/40 dark:border-white/30`}>
+                  <IconComponent className="w-6 h-6 text-white drop-shadow-lg" />
                 </div>
                 
-                {/* Icon Label with better background */}
-                <div className="text-center px-2 py-1 rounded-md desktop-icon-bg transition-all duration-200">
-                  <span className="text-xs text-white dark:text-slate-200 font-bold leading-tight desktop-icon-text">
+                {/* Icon Label with better background for wallpaper visibility */}
+                <div className="text-center px-2 py-1 rounded-md bg-black/40 backdrop-blur-sm border border-white/20 transition-all duration-200">
+                  <span className="text-xs text-white font-bold leading-tight drop-shadow-lg">
                     {item.name}
                   </span>
                 </div>
@@ -259,7 +278,7 @@ export function Desktop() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.6 }}
-        className="absolute bottom-0 left-0 right-0 h-14 bg-black/20 dark:bg-black/40 backdrop-blur-2xl border-t border-white/10 dark:border-white/5"
+        className="absolute bottom-0 left-0 right-0 h-14 bg-black/20 dark:bg-black/40 backdrop-blur-2xl border-t border-white/10 dark:border-white/5 z-50"
         style={{
           background: `linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)`
         }}
@@ -371,7 +390,7 @@ export function Desktop() {
       <StartMenu 
         isOpen={isStartMenuOpen}
         onClose={() => setIsStartMenuOpen(false)}
-        onOpenWindow={openWindow}
+        onOpenWindow={openWindowFromStartMenu}
       />
     </div>
   )
@@ -387,25 +406,6 @@ interface WindowComponentProps {
 function WindowComponent({ window: windowData, onClose, onMinimize, onFocus }: WindowComponentProps) {
   const [isDragging, setIsDragging] = useState(false)
   const { state, dispatch } = useOSState()
-
-  const handleDragEnd = (event: any, info: any) => {
-    if (!windowData.isMaximized) {
-      const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 1920
-      const screenHeight = typeof window !== 'undefined' ? window.innerHeight : 1080
-      const taskbarHeight = 56
-      const headerHeight = 60
-      
-      const maxX = screenWidth - windowData.size.width
-      const maxY = screenHeight - windowData.size.height - taskbarHeight
-      
-      const newPosition = {
-        x: Math.max(0, Math.min(maxX, windowData.position.x + info.offset.x)),
-        y: Math.max(0, Math.min(maxY, windowData.position.y + info.offset.y))
-      }
-      dispatch({ type: 'MOVE_WINDOW', windowId: windowData.id, position: newPosition })
-    }
-    setIsDragging(false)
-  }
 
   const handleMaximize = () => {
     const currentWindow = state.openWindows.find((w: Window) => w.id === windowData.id)

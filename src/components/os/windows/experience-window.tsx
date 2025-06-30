@@ -93,7 +93,7 @@ export function ExperienceWindow() {
           <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-slate-300 dark:bg-slate-700"></div>
           
           <div className="space-y-8">
-            {experiences.map((experience, index) => (
+            {experiences.map((experience) => (
               <motion.div
                 key={experience.title}
                 variants={itemVariants}

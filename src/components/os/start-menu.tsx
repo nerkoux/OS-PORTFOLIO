@@ -3,13 +3,10 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  Github, 
   Star, 
-  GitFork, 
   Code, 
   Calendar, 
   MapPin, 
-  Users, 
   BookOpen,
   User,
   Briefcase,
@@ -17,7 +14,6 @@ import {
   MessageCircle,
   Power,
   Settings,
-  Search,
   ExternalLink
 } from 'lucide-react'
 import { AboutWindow } from './windows/about-window'
@@ -53,7 +49,12 @@ interface GitHubRepo {
 interface StartMenuProps {
   isOpen: boolean
   onClose: () => void
-  onOpenWindow: (item: any) => void
+  onOpenWindow: (item: { 
+    id: string; 
+    title: string; 
+    component: React.ComponentType<Record<string, unknown>>; 
+    icon: React.ComponentType<Record<string, unknown>> 
+  }) => void
 }
 
 export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
@@ -66,6 +67,7 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
     {
       id: "about",
       name: "About Me",
+      title: "About Me",
       icon: User,
       type: "folder",
       component: AboutWindow,
@@ -75,6 +77,7 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
     {
       id: "projects",
       name: "My Projects",
+      title: "My Projects",
       icon: Code,
       type: "folder",
       component: ProjectsWindow,
@@ -84,6 +87,7 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
     {
       id: "skills",
       name: "Skills & Tech",
+      title: "Skills & Tech",
       icon: Award,
       type: "folder",
       component: SkillsWindow,
@@ -93,6 +97,7 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
     {
       id: "experience",
       name: "Experience",
+      title: "Experience",
       icon: Briefcase,
       type: "folder",
       component: ExperienceWindow,
@@ -102,6 +107,7 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
     {
       id: "contact",
       name: "Contact",
+      title: "Contact",
       icon: MessageCircle,
       type: "folder",
       component: ContactWindow,
@@ -152,7 +158,12 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
     })
   }
 
-  const handleItemClick = (item: any) => {
+  const handleItemClick = (item: { 
+    id: string; 
+    title: string; 
+    component: React.ComponentType<Record<string, unknown>>; 
+    icon: React.ComponentType<Record<string, unknown>> 
+  }) => {
     onOpenWindow(item)
     onClose()
   }
@@ -184,7 +195,7 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
                   <User className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-white dark:text-slate-100">Akshat's Portfolio</h2>
+                  <h2 className="text-xl font-bold text-white dark:text-slate-100">Akshat&apos;s Portfolio</h2>
                   <p className="text-slate-400 dark:text-slate-500 text-sm">Full Stack Developer</p>
                 </div>
               </div>
@@ -245,6 +256,7 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
                     {/* Profile Card */}
                     <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
                       <div className="flex items-start space-x-4">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={profile.avatar_url}
                           alt={profile.name}

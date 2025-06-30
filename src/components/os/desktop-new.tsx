@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Monitor as DesktopIcon, Folder, Volume2, VolumeX, Wifi, Battery, User, Code, Briefcase, Award, MessageCircle, X, Minimize, Maximize, Calendar, Clock, Search, Star, Sun, Moon } from "lucide-react"
+import { Monitor as DesktopIcon, Volume2, VolumeX, Wifi, User, Code, Briefcase, Award, MessageCircle, X, Minimize, Maximize, Clock, Folder, Search, Battery } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -344,7 +344,7 @@ function WindowComponent({ window, onClose, onMinimize, onFocus }: WindowCompone
   const [isDragging, setIsDragging] = useState(false)
   const { state, dispatch } = useOSState()
 
-  const handleDragEnd = (event: any, info: any) => {
+  const handleDragEnd = (event: MouseEvent, info: { offset: { x: number; y: number } }) => {
     const newPosition = {
       x: Math.max(0, window.position.x + info.offset.x),
       y: Math.max(0, window.position.y + info.offset.y)

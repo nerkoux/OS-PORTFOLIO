@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Monitor, Volume2, VolumeX } from 'lucide-react'
 import { useAudio } from './audio-provider'
@@ -14,8 +14,10 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
   const [stage, setStage] = useState<'disclaimer' | 'booting' | 'complete'>('disclaimer')
   const [bootProgress, setBootProgress] = useState(0)
   const [bootText, setBootText] = useState('')
+  const [isMobile, setIsMobile] = useState(false)
   const { playSound, setEnabled, isEnabled } = useAudio()
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const bootMessages = [
     'Initializing Akshat OS...',
     'Loading system modules...',
@@ -26,6 +28,16 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
     'Starting desktop environment...',
     'System ready!'
   ]
+
+  useEffect(() => {
+    // Detect mobile device
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent.toLowerCase()
+      const mobileKeywords = ['mobile', 'android', 'iphone', 'ipad', 'ipod', 'blackberry', 'windows phone']
+      return mobileKeywords.some(keyword => userAgent.includes(keyword)) || window.innerWidth <= 768
+    }
+    setIsMobile(checkMobile())
+  }, [])
 
   useEffect(() => {
     if (stage === 'booting') {
@@ -47,7 +59,7 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
 
       return () => clearInterval(interval)
     }
-  }, [stage, onComplete])
+  }, [stage, onComplete, bootMessages])
 
   const handleBootStart = () => {
     console.log('Boot button clicked')
@@ -93,20 +105,40 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
           >
             <div className="bg-slate-900 border border-slate-700 rounded-lg p-6 mb-6">
               <div className="flex items-center mb-4">
-                {isEnabled ? (
+                {isMobile ? (
+                  <Monitor className="w-5 h-5 text-blue-400 mr-2" />
+                ) : isEnabled ? (
                   <Volume2 className="w-5 h-5 text-green-400 mr-2" />
                 ) : (
                   <VolumeX className="w-5 h-5 text-gray-400 mr-2" />
                 )}
-                <h3 className="text-white font-semibold">Audio Experience</h3>
+                <h3 className="text-white font-semibold">
+                  {isMobile ? "Mobile Experience" : "Audio Experience"}
+                </h3>
               </div>
-              <p className="text-gray-300 text-sm mb-4">
-                For an immersive experience, this OS includes interactive sounds and audio feedback. 
-                Audio will only start after you click the boot button below.
-              </p>
-              <p className="text-gray-400 text-xs">
-                Note: Audio can be disabled anytime from the taskbar settings.
-              </p>
+              
+              {isMobile ? (
+                <>
+                  <p className="text-gray-300 text-sm mb-4">
+                    Welcome! You&apos;re viewing this portfolio on a mobile device. The experience has been 
+                    optimized for touch interaction without audio to ensure smooth performance.
+                  </p>
+                  <p className="text-blue-400 text-xs">
+                    💡 For the full immersive experience with interactive sounds and better window management, 
+                    try viewing on a desktop or laptop computer.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-gray-300 text-sm mb-4">
+                    For an immersive experience, this OS includes interactive sounds and audio feedback. 
+                    Audio will only start after you click the boot button below.
+                  </p>
+                  <p className="text-gray-400 text-xs">
+                    Note: Audio can be disabled anytime from the taskbar settings.
+                  </p>
+                </>
+              )}
             </div>
           </motion.div>
 
@@ -121,7 +153,7 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
               className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <Monitor className="w-5 h-5 mr-2" />
-              Boot Akshat OS
+              {isMobile ? "Enter Akshat OS" : "Boot Akshat OS"}
             </Button>
           </motion.div>
         </div>

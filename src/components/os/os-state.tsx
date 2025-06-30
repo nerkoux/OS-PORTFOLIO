@@ -5,13 +5,13 @@ import React, { createContext, useContext, useReducer, ReactNode } from 'react'
 export interface Window {
   id: string
   title: string
-  component: React.ComponentType<any>
+  component: React.ComponentType<Record<string, unknown>>
   isMinimized: boolean
   zIndex: number
   position: { x: number; y: number }
   size: { width: number; height: number }
   isMaximized: boolean
-  icon?: React.ComponentType<any>
+  icon?: React.ComponentType<Record<string, unknown>>
   originalPosition?: { x: number; y: number }
   originalSize?: { width: number; height: number }
 }

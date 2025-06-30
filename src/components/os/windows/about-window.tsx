@@ -70,7 +70,7 @@ export function AboutWindow() {
               <h3 className="text-lg font-semibold mb-4">About Me</h3>
               <div className="space-y-4 text-slate-600 dark:text-slate-400">
                 <p>
-                  I'm a passionate full-stack developer with over 5 years of experience creating 
+                  I&apos;m a passionate full-stack developer with over 5 years of experience creating 
                   modern web applications. I specialize in React, Next.js, Node.js, and cloud technologies.
                 </p>
                 <p>
@@ -79,7 +79,7 @@ export function AboutWindow() {
                   to deliver complete solutions.
                 </p>
                 <p>
-                  When I'm not coding, you can find me exploring new technologies, contributing to 
+                  When I&apos;m not coding, you can find me exploring new technologies, contributing to 
                   open source projects, or sharing knowledge with the developer community.
                 </p>
               </div>
@@ -118,7 +118,7 @@ export function AboutWindow() {
         <motion.div variants={itemVariants}>
           <h3 className="text-lg font-semibold mb-4">What Drives Me</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {values.map((value, index) => (
+            {values.map((value) => (
               <motion.div
                 key={value.title}
                 variants={itemVariants}

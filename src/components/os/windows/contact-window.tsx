@@ -113,7 +113,7 @@ export function ContactWindow() {
             Get In Touch
           </h2>
           <p className="text-slate-600 dark:text-slate-400">
-            I'm currently available for freelance work and exciting full-time opportunities. 
+            I&apos;m currently available for freelance work and exciting full-time opportunities. 
             If you have a project in mind or just want to chat about technology, feel free to reach out!
           </p>
         </motion.div>
@@ -122,7 +122,7 @@ export function ContactWindow() {
           {/* Contact Info */}
           <motion.div variants={itemVariants}>
             <div className="space-y-4">
-              {contactInfo.map((info, index) => (
+              {contactInfo.map((info) => (
                 <motion.a
                   key={info.title}
                   href={info.link}

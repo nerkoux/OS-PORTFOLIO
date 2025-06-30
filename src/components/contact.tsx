@@ -98,7 +98,7 @@ export function Contact() {
       await new Promise(resolve => setTimeout(resolve, 2000))
       setSubmitStatus("success")
       setFormData({ name: "", email: "", subject: "", message: "" })
-    } catch (error) {
+    } catch {
       setSubmitStatus("error")
     } finally {
       setIsSubmitting(false)
@@ -119,8 +119,8 @@ export function Contact() {
               Get In Touch
             </h2>
             <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-              I'm always interested in new opportunities and interesting projects. 
-              Whether you have a question or just want to say hi, I'll try my best to get back to you!
+              I&apos;m always interested in new opportunities and interesting projects. 
+              Whether you have a question or just want to say hi, I&apos;ll try my best to get back to you!
             </p>
           </motion.div>
 
@@ -130,17 +130,17 @@ export function Contact() {
               <div className="space-y-8">
                 <div>
                   <h3 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-6">
-                    Let's Start a Conversation
+                    Let&apos;s Start a Conversation
                   </h3>
                   <p className="text-slate-600 dark:text-slate-400 mb-8">
-                    I'm currently available for freelance work and exciting full-time opportunities. 
+                    I&apos;m currently available for freelance work and exciting full-time opportunities. 
                     If you have a project in mind or just want to chat about technology, feel free to reach out!
                   </p>
                 </div>
 
                 {/* Contact Details */}
                 <div className="space-y-4">
-                  {contactInfo.map((info, index) => (
+                  {contactInfo.map((info) => (
                     <motion.a
                       key={info.title}
                       href={info.link}
@@ -269,7 +269,7 @@ export function Contact() {
                         className="flex items-center space-x-2 text-green-600 dark:text-green-400"
                       >
                         <CheckCircle className="h-5 w-5" />
-                        <span>Message sent successfully! I'll get back to you soon.</span>
+                        <span>Message sent successfully! I&apos;ll get back to you soon.</span>
                       </motion.div>
                     )}
 
