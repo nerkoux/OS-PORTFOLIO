@@ -1,0 +1,176 @@
+"use client"
+
+import React from "react"
+import { motion } from "framer-motion"
+import { Card, CardContent } from "@/components/ui/card"
+import { Building, Calendar, MapPin } from "lucide-react"
+
+export function Experience() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  }
+
+  const experiences = [
+    {
+      title: "Senior Full Stack Developer",
+      company: "TechCorp Solutions",
+      location: "Remote",
+      period: "2022 - Present",
+      description: "Leading development of enterprise web applications using React, Next.js, and Node.js. Mentoring junior developers and architecting scalable solutions.",
+      achievements: [
+        "Led a team of 5 developers in rebuilding the main product platform",
+        "Improved application performance by 40% through optimization",
+        "Implemented CI/CD pipelines reducing deployment time by 60%",
+        "Mentored 3 junior developers to mid-level positions"
+      ],
+      technologies: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "AWS"]
+    },
+    {
+      title: "Full Stack Developer",
+      company: "Digital Innovations Inc",
+      location: "San Francisco, CA",
+      period: "2020 - 2022",
+      description: "Developed and maintained multiple client projects using modern web technologies. Collaborated with design teams to create pixel-perfect user interfaces.",
+      achievements: [
+        "Built 15+ client websites with 99.9% uptime",
+        "Reduced page load times by 50% through code optimization",
+        "Implemented real-time features using WebSockets",
+        "Contributed to the company's open-source component library"
+      ],
+      technologies: ["React", "Vue.js", "Python", "Django", "MongoDB", "Docker"]
+    },
+    {
+      title: "Frontend Developer",
+      company: "StartupHub",
+      location: "Austin, TX",
+      period: "2019 - 2020",
+      description: "Focused on creating responsive web applications and improving user experience. Worked in an agile environment with cross-functional teams.",
+      achievements: [
+        "Developed responsive designs for mobile-first approach",
+        "Increased user engagement by 35% through UI/UX improvements",
+        "Integrated third-party APIs and payment gateways",
+        "Maintained 95% code coverage with comprehensive testing"
+      ],
+      technologies: ["React", "JavaScript", "CSS3", "HTML5", "Jest", "Figma"]
+    }
+  ]
+
+  return (
+    <section id="experience" className="py-20 bg-white dark:bg-slate-950">
+      <div className="container mx-auto px-4">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.div variants={itemVariants} className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+              Professional Experience
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+              A journey through various roles and companies, each contributing to my growth as a 
+              developer and problem solver in the tech industry.
+            </p>
+          </motion.div>
+
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-8 md:left-1/2 transform md:-translate-x-px top-0 bottom-0 w-0.5 bg-slate-300 dark:bg-slate-700"></div>
+            
+            <div className="space-y-12">
+              {experiences.map((experience, index) => (
+                <motion.div
+                  key={experience.title}
+                  variants={itemVariants}
+                  className={`relative flex items-center ${
+                    index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  }`}
+                >
+                  {/* Timeline dot */}
+                  <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 border-4 border-white dark:border-slate-950 rounded-full z-10"></div>
+                  
+                  {/* Content */}
+                  <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'} ml-16 md:ml-0`}>
+                    <Card className="group transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                      <CardContent className="p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div>
+                            <h3 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                              {experience.title}
+                            </h3>
+                            <div className="flex items-center text-blue-600 dark:text-blue-400 mb-2">
+                              <Building className="h-4 w-4 mr-2" />
+                              <span className="font-medium">{experience.company}</span>
+                            </div>
+                            <div className="flex items-center text-slate-500 dark:text-slate-400 text-sm mb-1">
+                              <Calendar className="h-4 w-4 mr-2" />
+                              <span>{experience.period}</span>
+                            </div>
+                            <div className="flex items-center text-slate-500 dark:text-slate-400 text-sm">
+                              <MapPin className="h-4 w-4 mr-2" />
+                              <span>{experience.location}</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <p className="text-slate-600 dark:text-slate-400 mb-4">
+                          {experience.description}
+                        </p>
+                        
+                        <div className="mb-4">
+                          <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">
+                            Key Achievements:
+                          </h4>
+                          <ul className="space-y-1">
+                            {experience.achievements.map((achievement, achievementIndex) => (
+                              <li key={achievementIndex} className="text-sm text-slate-600 dark:text-slate-400 flex items-start">
+                                <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                                {achievement}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        
+                        <div>
+                          <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">
+                            Technologies:
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {experience.technologies.map((tech) => (
+                              <span
+                                key={tech}
+                                className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded text-xs font-medium"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
