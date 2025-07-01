@@ -356,7 +356,7 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
 
             {/* Footer */}
             <div className="mt-6 pt-4 border-t border-slate-700 flex items-center justify-between text-xs text-slate-400">
-              <div>Portfolio OS v1.0</div>
+              <div>Portfolio OS v1.1</div>
               <div>Press Esc to close</div>
             </div>
           </div>

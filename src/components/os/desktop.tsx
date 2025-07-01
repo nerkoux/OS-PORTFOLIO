@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Monitor as DesktopIcon, Volume2, VolumeX, Wifi, User, Code, Briefcase, Award, MessageCircle, X, Minimize, Maximize, Clock, Search } from "lucide-react"
+import { Monitor as DesktopIcon, Volume2, VolumeX, Wifi, User, Code, Briefcase, Award, MessageCircle, X, Minimize, Maximize, Clock, Search, Gamepad2, Calculator, Palette, Brain, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { AboutWindow } from "./windows/about-window"
@@ -10,6 +10,18 @@ import { ProjectsWindow } from "./windows/projects-window"
 import { SkillsWindow } from "./windows/skills-window"
 import { ExperienceWindow } from "./windows/experience-window"
 import { ContactWindow } from "./windows/contact-window"
+// Import new interactive components
+import { SnakeGame } from "./games/snake-game"
+import { MemoryGame } from "./games/memory-game"
+import { TicTacToe } from "./games/tic-tac-toe"
+import { BreakoutGame } from "./games/breakout-game"
+import { TetrisGame } from "./games/tetris-game"
+import { CalculatorApp } from "./widgets/calculator-app"
+import { DrawingApp } from "./widgets/drawing-app"
+import { MusicPlayer } from "./widgets/music-player"
+import { DesktopPet } from "./widgets/desktop-pet"
+import { ThemeSelector } from "./widgets/theme-selector"
+import { BackgroundEffects, ScreenSaver } from "./effects/interactive-effects"
 import { useOSState } from "./os-state"
 import { useAudio } from "./audio-provider"
 import { Window } from "./os-state"
@@ -61,6 +73,87 @@ const desktopItems = [
     component: ContactWindow,
     description: "Get in touch with me",
     color: "from-pink-500 to-rose-600"
+  },
+  {
+    id: "snake-game",
+    name: "Snake Game",
+    icon: Gamepad2,
+    type: "app",
+    component: SnakeGame,
+    description: "Play the classic snake game",
+    color: "from-green-400 to-green-600"
+  },
+  {
+    id: "memory-game", 
+    name: "Memory Game",
+    icon: Brain,
+    type: "app",
+    component: MemoryGame,
+    description: "Test your memory skills",
+    color: "from-purple-400 to-purple-600"
+  },
+  {
+    id: "tic-tac-toe",
+    name: "Tic Tac Toe",
+    icon: Zap,
+    type: "app",
+    component: TicTacToe,
+    description: "Classic tic-tac-toe game",
+    color: "from-blue-400 to-blue-600"
+  },
+  {
+    id: "breakout",
+    name: "Breakout",
+    icon: Gamepad2,
+    type: "app",
+    component: BreakoutGame,
+    description: "Classic brick-breaking arcade game",
+    color: "from-purple-400 to-purple-600"
+  },
+  {
+    id: "tetris",
+    name: "Tetris",
+    icon: Brain,
+    type: "app",
+    component: TetrisGame,
+    description: "Classic falling blocks puzzle game",
+    color: "from-indigo-400 to-indigo-600"
+  },
+  {
+    id: "music-player",
+    name: "Music Player",
+    icon: Volume2,
+    type: "app",
+    component: MusicPlayer,
+    description: "Audio player with visualizer",
+    color: "from-pink-400 to-pink-600"
+  },
+  {
+    id: "calculator",
+    name: "Calculator",
+    icon: Calculator,
+    type: "app",
+    component: CalculatorApp,
+    description: "Scientific calculator",
+    color: "from-gray-400 to-gray-600"
+  },
+  {
+    id: "drawing-app",
+    name: "Drawing",
+    icon: Palette,
+    type: "app",
+    component: DrawingApp,
+    description: "Create digital artwork",
+    color: "from-pink-400 to-pink-600"
+  },
+  {
+    id: "theme-selector",
+    name: "Themes",
+    icon: Palette,
+    type: "app",
+    component: ThemeSelector,
+    description: "Customize desktop themes",
+    color: "from-purple-400 to-purple-600"
   }
 ]
 
@@ -81,13 +174,37 @@ export function Desktop() {
     return () => clearInterval(timer)
   }, [dispatch])
 
-  // Initialize icon positions
+  // Initialize icon positions with proper grid layout
   useEffect(() => {
-    const initialPositions: { [key: string]: { x: number; y: number } } = {}
-    desktopItems.forEach((item, index) => {
-      initialPositions[item.id] = { x: 24, y: 24 + (index * 120) } // Vertical layout with more spacing
-    })
-    setIconPositions(initialPositions)
+    const calculateIconPositions = () => {
+      const initialPositions: { [key: string]: { x: number; y: number } } = {}
+      const screenHeight = typeof window !== 'undefined' ? window.innerHeight : 1080
+      const taskbarHeight = 56 // Height of taskbar
+      const availableHeight = screenHeight - taskbarHeight - 48 // Leave some margin
+      const iconSpacing = 120 // Space between icons
+      const startX = 24
+      const startY = 24
+      const iconsPerColumn = Math.floor(availableHeight / iconSpacing)
+      
+      desktopItems.forEach((item, index) => {
+        const column = Math.floor(index / iconsPerColumn)
+        const row = index % iconsPerColumn
+        initialPositions[item.id] = { 
+          x: startX + (column * iconSpacing), 
+          y: startY + (row * iconSpacing) 
+        }
+      })
+      
+      setIconPositions(initialPositions)
+    }
+
+    calculateIconPositions()
+    
+    // Recalculate on window resize
+    const handleResize = () => calculateIconPositions()
+    window.addEventListener('resize', handleResize)
+    
+    return () => window.removeEventListener('resize', handleResize)
   }, []) // Empty dependency array since desktopItems is now constant
 
   const openWindow = (item: typeof desktopItems[0]) => {
@@ -165,7 +282,11 @@ export function Desktop() {
         backgroundRepeat: 'no-repeat',
         backgroundAttachment: 'fixed'
       }}
+      data-desktop-background
+      data-wallpaper
     >
+      {/* Interactive Effects Layer - Cursor effects removed */}
+      
       {/* Dark overlay for better contrast with icons and text */}
       <div className="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
       {/* Grid Guide - Shows when dragging */}
@@ -183,10 +304,10 @@ export function Desktop() {
         />
       )}
       {/* Desktop Icons - Modern Windows/macOS Style */}
-      <div className="absolute inset-0 pb-20 z-10">
+      <div className="absolute inset-0 pb-14 z-10">{/* Changed from pb-20 to pb-14 to match taskbar height */}
         {desktopItems.map((item, index) => {
           const IconComponent = item.icon
-          const defaultPosition = { x: 24, y: 24 + (index * 120) }
+          const defaultPosition = iconPositions[item.id] || { x: 24, y: 24 }
           const position = iconPositions[item.id] || defaultPosition
           
           return (
@@ -206,6 +327,8 @@ export function Desktop() {
                 setIsDragging(false)
                 const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 1920
                 const screenHeight = typeof window !== 'undefined' ? window.innerHeight : 1080
+                const taskbarHeight = 56
+                const availableHeight = screenHeight - taskbarHeight - 48
                 
                 // Snap to grid (every 120px for better spacing)
                 const gridSize = 120
@@ -217,7 +340,7 @@ export function Desktop() {
                 
                 const newPosition = {
                   x: Math.max(24, Math.min(screenWidth - 96, snappedX)),
-                  y: Math.max(24, Math.min(screenHeight - 200, snappedY))
+                  y: Math.max(24, Math.min(availableHeight, snappedY))
                 }
                 
                 setIconPositions(prev => ({
@@ -229,7 +352,7 @@ export function Desktop() {
                 left: 24,
                 right: typeof window !== 'undefined' ? window.innerWidth - 96 : 1824,
                 top: 24,
-                bottom: typeof window !== 'undefined' ? window.innerHeight - 200 : 880
+                bottom: typeof window !== 'undefined' ? window.innerHeight - 56 - 48 : 976 // Account for taskbar + margin
               }}
               className="group cursor-pointer select-none absolute"
               style={{

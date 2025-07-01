@@ -17,7 +17,6 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
   const [isMobile, setIsMobile] = useState(false)
   const { playSound, setEnabled, isEnabled } = useAudio()
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const bootMessages = [
     'Initializing Akshat OS...',
     'Loading system modules...',

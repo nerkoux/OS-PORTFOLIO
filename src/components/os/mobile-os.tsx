@@ -18,13 +18,15 @@ import {
   Signal,
   Monitor,
   Smartphone,
-  Power
+  Power,
+  Music
 } from 'lucide-react'
 import { AboutWindow } from './windows/about-window'
 import { ProjectsWindow } from './windows/projects-window'
 import { SkillsWindow } from './windows/skills-window'
 import { ExperienceWindow } from './windows/experience-window'
 import { ContactWindow } from './windows/contact-window'
+import { MobileMusicPlayer } from './widgets/mobile-music-player'
 
 interface App {
   id: string
@@ -147,6 +149,13 @@ export function MobileOS() {
       icon: Mail,
       component: ContactWindow,
       color: 'bg-red-500'
+    },
+    {
+      id: 'music',
+      name: 'Music',
+      icon: Music,
+      component: MobileMusicPlayer,
+      color: 'bg-pink-500'
     }
   ]
 
