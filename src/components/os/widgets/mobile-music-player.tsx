@@ -416,9 +416,9 @@ export function MobileMusicPlayer() {
               </div>
 
               {/* Lyrics Container */}
-              <div className="flex-1 overflow-hidden">
+              <div className="flex-1 relative" style={{ height: 'calc(100vh - 200px)' }}>
                 {loadingLyrics ? (
-                  <div className="flex items-center justify-center h-full">
+                  <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center">
                       <Mic2 className="w-8 h-8 mx-auto mb-2 animate-pulse" />
                       <p className="text-white/70">Loading lyrics...</p>
@@ -427,12 +427,17 @@ export function MobileMusicPlayer() {
                 ) : lyrics && lyrics.lyrics.length > 0 ? (
                   <div 
                     ref={lyricsRef}
-                    className="h-full overflow-y-auto px-6 py-8 space-y-4 scrollbar-hidden"
+                    className="absolute inset-0 overflow-y-scroll px-6 py-8 space-y-4"
+                    style={{
+                      WebkitOverflowScrolling: 'touch',
+                      scrollbarWidth: 'none',
+                      msOverflowStyle: 'none'
+                    }}
                   >
                     {lyrics.lyrics.map((line, index) => (
                       <motion.div
                         key={index}
-                        className={`cursor-pointer transition-all duration-300 text-center py-2 px-4 rounded-lg ${
+                        className={`cursor-pointer transition-all duration-300 text-center py-3 px-4 rounded-lg touch-manipulation ${
                           index === currentLyricIndex
                             ? 'text-white text-xl font-semibold bg-white/10 scale-105'
                             : index === currentLyricIndex - 1 || index === currentLyricIndex + 1
@@ -446,9 +451,11 @@ export function MobileMusicPlayer() {
                         {line.text}
                       </motion.div>
                     ))}
+                    {/* Add padding at the end for better scrolling */}
+                    <div className="h-32"></div>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-center h-full">
+                  <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center text-white/50">
                       <Mic2 className="w-8 h-8 mx-auto mb-2" />
                       <p>No lyrics available</p>
@@ -602,6 +609,25 @@ export function MobileMusicPlayer() {
           display: none;
         }
 
+        /* Custom scrollbar styling for lyrics */
+        div[ref]::-webkit-scrollbar {
+          width: 4px;
+        }
+        
+        div[ref]::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 2px;
+        }
+        
+        div[ref]::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 2px;
+        }
+        
+        div[ref]::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.5);
+        }
+
         .slider::-webkit-slider-thumb {
           appearance: none;
           width: 16px;
@@ -625,6 +651,11 @@ export function MobileMusicPlayer() {
         .vertical-slider {
           writing-mode: bt-lr;
           -webkit-appearance: slider-vertical;
+        }
+
+        /* Ensure touch scrolling works on mobile */
+        * {
+          -webkit-overflow-scrolling: touch;
         }
       `}</style>
     </div>
