@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { 
@@ -15,7 +15,10 @@ import {
   ArrowLeft,
   Wifi,
   Battery,
-  Signal
+  Signal,
+  Monitor,
+  Smartphone,
+  Power
 } from 'lucide-react'
 import { AboutWindow } from './windows/about-window'
 import { ProjectsWindow } from './windows/projects-window'
@@ -34,8 +37,22 @@ interface App {
 export function MobileOS() {
   const [currentTime, setCurrentTime] = useState('')
   const [currentApp, setCurrentApp] = useState<string | null>(null)
-  const [showHomeScreen, setShowHomeScreen] = useState(true)
+  const [showHomeScreen, setShowHomeScreen] = useState(false)
   const [battery] = useState(85)
+  const [osState, setOSState] = useState<'welcome' | 'booting' | 'ready'>('welcome')
+  const [bootProgress, setBootProgress] = useState(0)
+  const [bootText, setBootText] = useState('')
+  const [isFullscreen, setIsFullscreen] = useState(false)
+
+  const bootMessages = useMemo(() => [
+    'Initializing Akshat Mobile OS...',
+    'Loading system modules...',
+    'Starting mobile interface...',
+    'Configuring touch controls...',
+    'Loading applications...',
+    'Optimizing for mobile...',
+    'System ready!'
+  ], [])
 
   useEffect(() => {
     const updateTime = () => {
@@ -46,6 +63,54 @@ export function MobileOS() {
     const interval = setInterval(updateTime, 1000)
     return () => clearInterval(interval)
   }, [])
+
+  // Boot sequence effect
+  useEffect(() => {
+    if (osState === 'booting') {
+      const interval = setInterval(() => {
+        setBootProgress(prev => {
+          const newProgress = prev + 2
+          const messageIndex = Math.floor((newProgress / 100) * (bootMessages.length - 1))
+          setBootText(bootMessages[messageIndex] || bootMessages[bootMessages.length - 1])
+          
+          if (newProgress >= 100) {
+            clearInterval(interval)
+            setTimeout(() => {
+              setOSState('ready')
+              setShowHomeScreen(true)
+            }, 1000)
+          }
+          
+          return newProgress
+        })
+      }, 50) // Faster boot for mobile
+
+      return () => clearInterval(interval)
+    }
+  }, [osState, bootMessages])
+
+  // Fullscreen functionality
+  const enterFullscreen = async () => {
+    try {
+      if (document.documentElement.requestFullscreen) {
+        await document.documentElement.requestFullscreen()
+        setIsFullscreen(true)
+      } else if ((document.documentElement as any).webkitRequestFullscreen) {
+        await (document.documentElement as any).webkitRequestFullscreen()
+        setIsFullscreen(true)
+      } else if ((document.documentElement as any).msRequestFullscreen) {
+        await (document.documentElement as any).msRequestFullscreen()
+        setIsFullscreen(true)
+      }
+    } catch (error) {
+      console.log('Fullscreen not supported or denied')
+    }
+  }
+
+  const startOS = async () => {
+    await enterFullscreen()
+    setOSState('booting')
+  }
 
   const apps: App[] = [
     {
@@ -96,6 +161,179 @@ export function MobileOS() {
   }
 
   const currentAppData = apps.find(app => app.id === currentApp)
+
+  // Welcome Screen
+  if (osState === 'welcome') {
+    return (
+      <div className="h-screen w-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden flex items-center justify-center">
+        <div className="absolute inset-0 bg-black/20" />
+        
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              background: `
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)
+              `
+            }}
+            animate={{
+              opacity: [0.3, 0.6, 0.3]
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </div>
+
+        <div className="text-center z-10 px-8 max-w-md">
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mb-8"
+          >
+            <Smartphone className="w-20 h-20 mx-auto text-blue-400 mb-6" />
+            <h1 className="text-3xl font-bold text-white mb-2">
+              Akshat Mobile OS
+            </h1>
+            <p className="text-blue-200 text-lg">
+              Portfolio Experience
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="mb-8"
+          >
+            <p className="text-white/80 text-sm leading-relaxed">
+              Experience my portfolio in a unique mobile OS interface. 
+              Tap below to enter fullscreen mode and start the system.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+          >
+            <Button
+              onClick={startOS}
+              size="lg"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
+              <Power className="w-5 h-5 mr-2" />
+              Enter Akshat OS
+            </Button>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+            className="text-white/60 text-xs mt-6"
+          >
+            Best experienced in fullscreen mode
+          </motion.p>
+        </div>
+      </div>
+    )
+  }
+
+  // Boot Sequence
+  if (osState === 'booting') {
+    return (
+      <div className="h-screen w-full bg-black text-white flex items-center justify-center relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20" />
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              background: `
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)
+              `
+            }}
+            animate={{
+              opacity: [0.3, 0.6, 0.3]
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </div>
+
+        {/* Scanning Line Effect */}
+        <motion.div
+          className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent"
+          animate={{
+            y: [0, window.innerHeight || 800]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+
+        <div className="text-center z-10 px-8">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="mb-8"
+          >
+            <Smartphone className="w-16 h-16 mx-auto text-blue-400 mb-4 animate-pulse" />
+            <h2 className="text-xl font-bold text-white mb-2">
+              Akshat Mobile OS
+            </h2>
+            <p className="text-blue-200 text-sm">
+              Booting System...
+            </p>
+          </motion.div>
+
+          {/* Progress Bar */}
+          <div className="w-80 max-w-full mx-auto mb-6">
+            <div className="bg-gray-800 rounded-full h-2 overflow-hidden">
+              <motion.div
+                className="bg-gradient-to-r from-blue-500 to-purple-500 h-full rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: `${bootProgress}%` }}
+                transition={{ duration: 0.3 }}
+              />
+            </div>
+          </div>
+
+          <motion.p
+            key={bootText}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-sm text-gray-400 font-mono mb-2"
+          >
+            {bootText}
+          </motion.p>
+
+          <p className="text-xs text-gray-500">
+            {bootProgress}% complete
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  // Main OS Interface (only show when ready)
+  if (osState !== 'ready') {
+    return null
+  }
 
   return (
     <div className="h-screen w-full bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900 relative overflow-hidden">

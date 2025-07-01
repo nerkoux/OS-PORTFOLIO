@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github, Globe, Filter, X } from "lucide-react"
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Image from "next/image"
 
 export function Projects() {

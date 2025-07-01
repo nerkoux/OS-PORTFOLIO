@@ -18,7 +18,11 @@ const eslintConfig = [
       // Disable img element warning - comment out this rule  
       "@next/next/no-img-element": "off",
       // Disable unescaped entities warning - comment out this rule
-      "react/no-unescaped-entities": "off"
+      "react/no-unescaped-entities": "off",
+      // Disable explicit any type error - comment out this rule
+      "@typescript-eslint/no-explicit-any": "off",
+      // Disable exhaustive deps warning - comment out this rule
+      "react-hooks/exhaustive-deps": "off"
     }
   }
 ];

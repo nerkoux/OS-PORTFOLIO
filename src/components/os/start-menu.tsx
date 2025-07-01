@@ -256,7 +256,6 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
                     {/* Profile Card */}
                     <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
                       <div className="flex items-start space-x-4">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={profile.avatar_url}
                           alt={profile.name}
