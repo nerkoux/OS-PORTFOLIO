@@ -1,10 +1,197 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Shield, User, Database, Lock, Eye, FileText, Calendar, Mail } from 'lucide-react'
+import { Shield, User, Database, Lock, Eye, FileText, Calendar, Mail, Download } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { useState } from 'react'
 
 export default function PrivacyMicrosoftPage() {
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
+
+  const generatePDF = async () => {
+    setIsGeneratingPDF(true)
+    
+    try {
+      // Dynamically import the PDF libraries
+      const jsPDF = (await import('jspdf')).default
+      const html2canvas = (await import('html2canvas')).default
+      
+      // Create a new PDF document
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      })
+      
+      const pageWidth = pdf.internal.pageSize.getWidth()
+      const pageHeight = pdf.internal.pageSize.getHeight()
+      const margin = 20
+      const contentWidth = pageWidth - (margin * 2)
+      
+      // Add header
+      pdf.setFontSize(16)
+      pdf.setFont('helvetica', 'bold')
+      pdf.text('Akshat Mehta', margin, 25)
+      
+      pdf.setFontSize(12)
+      pdf.setFont('helvetica', 'normal')
+      pdf.text('Microsoft 365 Privacy Statement', margin, 35)
+      
+      // Add line under header
+      pdf.setLineWidth(0.5)
+      pdf.line(margin, 40, pageWidth - margin, 40)
+      
+      let currentY = 55
+      
+      // Title
+      pdf.setFontSize(18)
+      pdf.setFont('helvetica', 'bold')
+      const title = 'Microsoft 365 Privacy Statement'
+      pdf.text(title, margin, currentY)
+      currentY += 15
+      
+      // Effective date
+      pdf.setFontSize(10)
+      pdf.setFont('helvetica', 'normal')
+      pdf.text('Effective Date: January 1, 2025 | Last Updated: July 1, 2025', margin, currentY)
+      currentY += 20
+      
+      // Content sections
+      const sections = [
+        {
+          title: 'Organization Overview',
+          content: [
+            'Personal Microsoft 365 Organization',
+            'This Microsoft 365 organization is owned and operated solely by Akshat Mehta for personal, educational, and professional development purposes. I am the only user and administrator of this organization.',
+            '',
+            'Organization Details:',
+            '• Organization Name: Akshat Mehta (Personal)',
+            '• Administrator: Akshat Mehta',
+            '• Total Users: 1 (Personal Use Only)',
+            '• Data Location: Microsoft Global Infrastructure'
+          ]
+        },
+        {
+          title: 'Data Collection & Usage',
+          content: [
+            'As the sole user of this Microsoft 365 organization, all data is personal and used exclusively for my own purposes. Data stored includes:',
+            '',
+            '• Email Data: Personal and professional emails stored in Exchange Online',
+            '• Documents: Personal documents, projects, and files in OneDrive and SharePoint',
+            '• Calendar Data: Personal appointments, meetings, and scheduling information',
+            '• Profile Data: Basic profile information and account settings'
+          ]
+        },
+        {
+          title: 'Data Protection & Security',
+          content: [
+            'Security Measures:',
+            '• Multi-factor authentication (MFA) enabled',
+            '• Microsoft\'s enterprise-grade encryption at rest and in transit',
+            '• Advanced Threat Protection (ATP) enabled',
+            '• Regular security updates and patches automatically applied',
+            '• Data Loss Prevention (DLP) policies configured',
+            '',
+            'Privacy Controls:',
+            'As the sole administrator, I have full control over all privacy settings, data retention policies, and access controls. No external parties have access to this organization\'s data without my explicit consent.'
+          ]
+        },
+        {
+          title: 'Data Sharing & Third Parties',
+          content: [
+            'No Third-Party Sharing:',
+            'I do not share, sell, rent, or otherwise distribute personal data stored in this Microsoft 365 organization with any third parties. Data is used exclusively for personal purposes.',
+            '',
+            'Microsoft\'s Role:',
+            'Microsoft acts as a data processor for this organization. They provide the cloud infrastructure and services but do not have access to the content of my data except as outlined in Microsoft\'s privacy policy and terms of service.'
+          ]
+        },
+        {
+          title: 'Your Rights & Data Controls',
+          content: [
+            'Since I am the sole user and data controller of this organization, I maintain complete control over all data:',
+            '',
+            '• Data Access: Full access to all data stored in the organization',
+            '• Data Portability: Ability to export all data using Microsoft\'s tools',
+            '• Data Deletion: Complete control over data retention and deletion',
+            '• Privacy Settings: Full administrative control over all privacy configurations'
+          ]
+        },
+        {
+          title: 'Contact Information',
+          content: [
+            'If you have any questions about this privacy statement or data handling practices:',
+            '',
+            'Data Controller: Akshat Mehta',
+            'Email: akshatmehta202005@gmail.com',
+            'Website: https://akshatmehta.com'
+          ]
+        }
+      ]
+      
+      // Add sections to PDF
+      for (const section of sections) {
+        // Check if we need a new page
+        if (currentY > pageHeight - 60) {
+          pdf.addPage()
+          currentY = margin + 10
+        }
+        
+        // Section title
+        pdf.setFontSize(14)
+        pdf.setFont('helvetica', 'bold')
+        pdf.text(section.title, margin, currentY)
+        currentY += 10
+        
+        // Section content
+        pdf.setFontSize(10)
+        pdf.setFont('helvetica', 'normal')
+        
+        for (const line of section.content) {
+          if (currentY > pageHeight - 30) {
+            pdf.addPage()
+            currentY = margin + 10
+          }
+          
+          if (line === '') {
+            currentY += 5
+          } else {
+            const splitText = pdf.splitTextToSize(line, contentWidth)
+            pdf.text(splitText, margin, currentY)
+            currentY += splitText.length * 5
+          }
+        }
+        
+        currentY += 10
+      }
+      
+      // Add footer to all pages
+      const pageCount = (pdf as any).internal.getNumberOfPages()
+      for (let i = 1; i <= pageCount; i++) {
+        pdf.setPage(i)
+        
+        // Footer line
+        pdf.setLineWidth(0.5)
+        pdf.line(margin, pageHeight - 25, pageWidth - margin, pageHeight - 25)
+        
+        // Footer text
+        pdf.setFontSize(10)
+        pdf.setFont('helvetica', 'normal')
+        pdf.text(`© 2025 Akshat Mehta - Microsoft 365 Privacy Statement`, margin, pageHeight - 15)
+        pdf.text(`Page ${i} of ${pageCount}`, pageWidth - margin - 20, pageHeight - 15)
+      }
+      
+      // Save the PDF
+      pdf.save('Akshat_Mehta_Microsoft365_Privacy_Statement.pdf')
+      
+    } catch (error) {
+      console.error('Error generating PDF:', error)
+      alert('Failed to generate PDF. Please try again.')
+    } finally {
+      setIsGeneratingPDF(false)
+    }
+  }
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -40,6 +227,32 @@ export default function PrivacyMicrosoftPage() {
           <div className="mt-4 text-sm text-slate-500 dark:text-slate-500">
             Effective Date: January 1, 2025 | Last Updated: July 1, 2025
           </div>
+          
+          {/* Download PDF Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="mt-6"
+          >
+            <Button
+              onClick={generatePDF}
+              disabled={isGeneratingPDF}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
+              {isGeneratingPDF ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Generating PDF...
+                </>
+              ) : (
+                <>
+                  <Download className="w-5 h-5 mr-2" />
+                  Download PDF
+                </>
+              )}
+            </Button>
+          </motion.div>
         </motion.div>
 
         {/* Organization Overview */}
