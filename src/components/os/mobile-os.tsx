@@ -19,7 +19,8 @@ import {
   Monitor,
   Smartphone,
   Power,
-  Music
+  Music,
+  Github
 } from 'lucide-react'
 import { AboutWindow } from './windows/about-window'
 import { ProjectsWindow } from './windows/projects-window'
@@ -27,6 +28,7 @@ import { SkillsWindow } from './windows/skills-window'
 import { ExperienceWindow } from './windows/experience-window'
 import { ContactWindow } from './windows/contact-window'
 import { MobileMusicPlayer } from './widgets/mobile-music-player'
+import { GitHubApp } from './widgets/github-app'
 
 interface App {
   id: string
@@ -156,6 +158,13 @@ export function MobileOS() {
       icon: Music,
       component: MobileMusicPlayer,
       color: 'bg-pink-500'
+    },
+    {
+      id: 'github',
+      name: 'GitHub',
+      icon: Github,
+      component: GitHubApp,
+      color: 'bg-gray-800'
     }
   ]
 

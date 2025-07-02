@@ -127,21 +127,46 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
       setLoading(true)
       setError(null)
 
-      // Fetch GitHub profile
-      const profileResponse = await fetch('https://api.github.com/users/nerkoux')
+      // Add delay to avoid rate limiting
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      // Fetch GitHub profile with proper headers
+      const profileResponse = await fetch('https://api.github.com/users/nerkoux', {
+        headers: {
+          'Accept': 'application/vnd.github.v3+json',
+          'User-Agent': 'Portfolio-App'
+        }
+      })
+      
+      if (profileResponse.status === 403) {
+        throw new Error('GitHub API rate limit exceeded. This is a temporary issue from GitHub\'s end. Please try again later.')
+      }
+      
       if (!profileResponse.ok) {
-        throw new Error('Failed to fetch GitHub profile')
+        throw new Error(`Failed to fetch GitHub profile: ${profileResponse.status}`)
       }
       const profileData = await profileResponse.json()
       setProfile(profileData)
 
-      // Fetch top repositories
-      const reposResponse = await fetch('https://api.github.com/users/nerkoux/repos?sort=updated&per_page=6')
-      if (!reposResponse.ok) {
-        throw new Error('Failed to fetch repositories')
+      // Fetch top repositories with rate limit handling
+      const reposResponse = await fetch('https://api.github.com/users/nerkoux/repos?sort=updated&per_page=6', {
+        headers: {
+          'Accept': 'application/vnd.github.v3+json',
+          'User-Agent': 'Portfolio-App'
+        }
+      })
+      
+      if (reposResponse.status === 403) {
+        console.warn('GitHub API rate limited for repos')
+        // Still show profile data even if repos fail
+        setRepos([])
+        return
       }
-      const reposData = await reposResponse.json()
-      setRepos(reposData)
+      
+      if (reposResponse.ok) {
+        const reposData = await reposResponse.json()
+        setRepos(reposData)
+      }
 
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch GitHub data')
@@ -249,7 +274,13 @@ export function StartMenu({ isOpen, onClose, onOpenWindow }: StartMenuProps) {
                   </div>
                 ) : error ? (
                   <div className="bg-red-900/50 border border-red-700 rounded-lg p-4">
-                    <p className="text-red-200">Error: {error}</p>
+                    <p className="text-red-200 mb-3">Error: {error}</p>
+                    <button
+                      onClick={fetchGitHubData}
+                      className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition-colors"
+                    >
+                      Try Again
+                    </button>
                   </div>
                 ) : profile ? (
                   <div className="space-y-4">
