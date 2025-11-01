@@ -104,7 +104,7 @@
       <br>Radix UI
     </td>
     <td align="center" width="96">
-      <img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/vector-icons/brand-framer-motion-pk1mas1m7u9hi06fqzq77f.png/brand-framer-motion-nuunolaqtcs7zlblwkjs.png?_a=DATAg1AAZAA0" width="48" height="48" alt="Framer Motion" />
+      <img src="https://www.ejable.com/wp-content/uploads/2022/04/Framer-Motion.webp" width="48" height="48" alt="Framer Motion" />
       <br>Framer Motion
     </td>
     <td align="center" width="96">
