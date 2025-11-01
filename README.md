@@ -543,16 +543,16 @@ aws s3 sync out/ s3://your-bucket-name --delete
 <div align="center">
 
 ### 🏠 Homepage
-![Homepage](https://via.placeholder.com/800x400/3B82F6/ffffff?text=Homepage+Preview)
+![Homepage](https://cdn.akszt.dev/a99541653e4d49f4.png)
 
 ### 📊 GitHub Widget
-![GitHub Widget](https://via.placeholder.com/800x400/10B981/ffffff?text=GitHub+Widget)
+![GitHub Widget](https://cdn.akszt.dev/64ad4dd364b949f2.png)
 
 ### 📧 Contact Form
-![Contact Form](https://via.placeholder.com/800x400/8B5CF6/ffffff?text=Contact+Form)
+![Contact Form](https://cdn.akszt.dev/2853fd3a79dd4ae1.png)
 
 ### 🌗 Dark Mode
-![Dark Mode](https://via.placeholder.com/800x400/1F2937/ffffff?text=Dark+Mode)
+![Dark Mode](https://cdn.akszt.dev/4d1ca5879fcf40f2.png)
 
 </div>
 
