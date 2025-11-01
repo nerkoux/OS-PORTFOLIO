@@ -620,7 +620,7 @@ Found a bug? Have a feature suggestion? Please [open an issue](https://github.co
 
 <div align="center">
 
-<img src="https://github.com/akshatmehta.png" width="100" height="100" style="border-radius: 50%;" alt="Akshat Mehta"/>
+<img src="https://github.com/nerkoux.png" width="100" height="100" style="border-radius: 50%;" alt="Akshat Mehta"/>
 
 ### **Akshat Mehta**
 
